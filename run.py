@@ -180,7 +180,7 @@ if __name__ == '__main__':
         print("partida",partida)
         partida=partida+1
 
-        while jugada<=9:
+        while jugada<9:
             if turno=="maquina":
                 turno="jugador"
                 jugadorMaquina()
