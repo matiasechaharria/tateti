@@ -24,3 +24,8 @@ Al iniciar se elije aleatoriamente quien empieza, si la maquina o el jugador.
 La maquina no tiene ninguna inteligencia, esta selecciona aleatoriamente casillas vacias
 
 para finalizar el programa matarlo con ctrl + c
+
+
+Dificultades:
+  no tenia ni idea de como hacer los dibujos en la consola.
+  la funcion dibujarTablero() como template fue lo mas simple y efectivo que se me ocurrio
