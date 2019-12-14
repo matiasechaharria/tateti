@@ -167,17 +167,19 @@ def puntos(gano):
 if __name__ == '__main__':
     global tablero
 
-    tablero=CASILLASDELTABLERO
+    tablero=CASILLASDELTABLERO.copy()
     dibujarTablero(tablero)
     print('+++++++++')
     partida=jugada=0
 
     while(1):
-        tablero=TABLEROVACIO
+        jugada=0
+        tablero=TABLEROVACIO.copy()
         dibujarTablero(tablero)
         inicio()
         print("partida",partida)
         partida=partida+1
+
         while jugada<=9:
             if turno=="maquina":
                 turno="jugador"
@@ -186,8 +188,9 @@ if __name__ == '__main__':
                 turno="maquina"
                 solicitudJugador()
 
-
-            if 1==ganador():
+            aux=ganador()
+            print(aux)
+            if 1==aux:
                 break
             jugada=jugada+1
             print("jugada",jugada)
