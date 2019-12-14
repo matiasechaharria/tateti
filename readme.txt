@@ -21,3 +21,5 @@ instalar requiriments.txt de la siquiente manera
 
 Al iniciar se elije aleatoriamente quien empieza, si la maquina o el jugador.
 La maquina no tiene ninguna inteligencia, esta selecciona aleatoriamente casillas vacias
+
+para finalizar el programa matarlo con ctrl + c
