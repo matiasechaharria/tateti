@@ -1,4 +1,5 @@
 Este juego del tateti es para la evaluacion tecnica se desarrollo en python 3
+tiempo :aproximadamente 5hs
 
 Para hacerlo andar crear un ambiente virtual para independizar el ambiente
   python3 -m venv tutorial-env
