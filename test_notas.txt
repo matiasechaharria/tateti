@@ -1,0 +1,23 @@
+test realizados
+
+1- El inicio es aleatoreo. STATUS=OK.
+2- El jugador solo puede meter numeros del 0 al 8.STATUS=OK.
+3- El jugador no puede meter casill ocupadas. STATUS=OK.
+4- La partida termina en 3 casos posibles:
+  Gana:maquina
+  Gana:jugador
+  empate
+  STATUS=OK.
+5- Se limpia el tablero luego de la partida.STATUS=OK.
+6- Se suman correctamente los puntos.STATUS=OK.
+7- Los puntos no desaparecen hasta cerrar el programa.STATUS=OK.
+8- Cuando hay empate no se computan los puntos.STATUS=OK.
+9- Test de todas las opciones de ganar.STATUS=OK.
+    por columna.STATUS=OK.
+    por filasSTATUS=OK.
+    por diagonalesSTATUS=OK.
+10-Issue 01 en gitlab. STATUS=OK.
+
+
+Mejoras
+1-Sacar los print de ayuda
