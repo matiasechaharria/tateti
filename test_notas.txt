@@ -17,6 +17,7 @@ test realizados
     por filasSTATUS=OK.
     por diagonalesSTATUS=OK.
 10-Issue 01 en gitlab. STATUS=OK.
+11- Issue02 si el usuario ingresa 9 rompe todo
 
 
 Mejoras

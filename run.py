@@ -1,13 +1,7 @@
 
 import random
 
-TABLEROVACIO=[" "," "," "," "," "," "," "," "," "]
-CASILLASDELTABLERO=["0","1","2","3","4","5","6","7","8"]
-turno="maquina"
-punto =	{
-  "maquina": 0,
-  "jugador": 0,
-}
+
 
 def dibujarTablero(tablero):
     '''
@@ -27,31 +21,31 @@ def dibujarTablero(tablero):
     print('   |   |')
 
 
-def solicitudJugador():
+def solicitudJugador(tablero):
     '''
     le pide al usuario que elija una posicion
-    chequea que sea numero de 0 a 9
+    chequea que sea numero de 0 a 8
     '''
-    print("Ingrese el numero del casillero")
-    posicion = input()
 
     try:
-        posicion=int(posicion)
-        if 0 <= posicion and posicion <= 9:
-            casillaDisponible(posicion,1)
+
+        posicion=int(input("Ingrese el numero del casillero: "))
+        print(posicion)
+        if 0 <= posicion and posicion <= 8:
+            casillaDisponible(posicion,1,tablero)
         else:
             print("numero no valido")
-            print("numeros validos del 0 al 9")
+            print("numeros validos del 0 al 8")
     except ValueError:
         print("Limitese a ingresar solo numeros")
-        print("numeros validos del 0 al 9")
+        print("numeros validos del 0 al 8")
 
-def casillaDisponible(casilla,jugador):
+def casillaDisponible(casilla,jugador,tablero):
     '''
     funcion que evalua si la casilla esta casillaDisponible
     si lo está la ocupa segun el jugador
     '''
-    global tablero
+
 
     if tablero[casilla]==" ":
         print("casilla disponible")
@@ -64,21 +58,21 @@ def casillaDisponible(casilla,jugador):
         print("casilla ocupada")
         dibujarTablero(tablero)
         if 0==jugador:
-            jugadorMaquina()
-        else:
-            solicitudJugador()
+            jugadorMaquina(tablero)
+        elif 1==jugador:
+            solicitudJugador(tablero)
 
 
-def jugadorMaquina():
+def jugadorMaquina(tablero):
 
-    num=random.randrange(0,9)
+    num=random.randrange(0,8)
     posicion=int(num)
-    if 0 <= posicion and posicion <= 9:
-        casillaDisponible(posicion,0)
+    if 0 <= posicion and posicion <= 8:
+        casillaDisponible(posicion,0,tablero)
 
 
 
-def inicio():
+def inicio(turno):
     '''
     funcion que aleatoriamente decide quien inicia
     '''
@@ -87,85 +81,76 @@ def inicio():
     num=num%2
     print(num)
     if( 0==num):
-        #es par inicia la maquina
-        #jugadorMaquina()
         turno="maquina"
         return(0)
     else:
-        #es impar inicia el jugador
-        #solicitudJugador()
         turno="jugador"
         return(1)
 
 
-def ganador():
+def ganador(tablero):
     '''
     funcion que dice que dice si alguien gano
     '''
-    global tablero
     #veo las filas
     fila=[0,3,6]
     for i in fila:
         if tablero[i]==tablero[i+1] and tablero[i+1]==tablero[i+2]:
             if "0"==tablero[i]:
                 print("gano el jugador")
-                puntos("jugador")
-                return(1)
+                return("jugador")
             elif "x"==tablero[i]:
                 print("gano la maquina")
-                puntos("maquina")
-                return(1)
+                return("maquina")
 
     columna=[0,1,2]
     for i in columna:
         if tablero[i]==tablero[i+3] and tablero[i+3]==tablero[i+6]:
             if "0"==tablero[i]:
                 print("gano el jugador")
-                tablero=TABLEROVACIO
-                puntos("jugador")
-                return(1)
+                return("jugador")
             elif "x"==tablero[i]:
                 print("gano la maquina")
-                puntos("maquina")
-                return(1)
+                return("maquina")
 
     #vel las diagonales[ 0,4,8]
     if tablero[0]==tablero[4] and tablero[4]==tablero[8]:
         if "0"==tablero[0]:
             print("gano el jugador")
-            puntos("jugador")
-            return(1)
+            return("jugador")
         elif "x"==tablero[0]:
             print("gano la maquina")
-            puntos("maquina")
-            return(1)
+            return("maquina")
 
     #vel las diagonales[ 2,4,6]
     if tablero[2]==tablero[4] and tablero[4]==tablero[6]:
         if "0"==tablero[2]:
             print("gano el jugador")
-            puntos("jugador")
-            return(1)
+            return("jugador")
+
         elif "x"==tablero[2]:
             print("gano la maquina")
-            puntos("maquina")
-            return(1)
+            return("maquina")
 
 
-def puntos(gano):
-    global tablero
-
-    punto[gano]=punto[gano]+1
-    tablero=TABLEROVACIO
-    print(punto)
-
+    return(0)
 
 
 
 
 
 if __name__ == '__main__':
-    global tablero
+    TABLEROVACIO=[" "," "," "," "," "," "," "," "," "]
+    CASILLASDELTABLERO=["0","1","2","3","4","5","6","7","8"]
+    turno="maquina"
+    punto =	{
+      "maquina": 0,
+      "jugador": 0,
+      "empate": 0,
+     }
+
+    print(punto)
+
 
     tablero=CASILLASDELTABLERO.copy()
     dibujarTablero(tablero)
@@ -176,21 +161,34 @@ if __name__ == '__main__':
         jugada=0
         tablero=TABLEROVACIO.copy()
         dibujarTablero(tablero)
-        inicio()
+        inicio(turno)
         print("partida",partida)
         partida=partida+1
 
-        while jugada<9:
-            if turno=="maquina":
-                turno="jugador"
-                jugadorMaquina()
-            else :
-                turno="maquina"
-                solicitudJugador()
+        #mientras haya ligares libres se juega
+        while 0<tablero.count(" "):
+            #si inicio el jugador
+            if turno=="jugador":
+                if tablero.count("0")<tablero.count("x"):
+                    jugadorMaquina(tablero)
+                else:
+                    solicitudJugador(tablero)
 
-            aux=ganador()
-            print(aux)
-            if 1==aux:
+            #si inicio la maquina
+            if turno=="maquina":
+                if tablero.count("0")>tablero.count("x"):
+                    jugadorMaquina(tablero)
+                else:
+                    solicitudJugador(tablero)
+
+            aux=ganador(tablero)
+            print("aux",aux)
+            if aux== "jugador" or aux=="maquina":
+                punto[aux]=punto[aux]+1
+                print(punto)
                 break
+
             jugada=jugada+1
             print("jugada",jugada)
+
+        punto["empate"]=punto["empate"]+1
